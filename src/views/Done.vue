@@ -66,12 +66,9 @@ export default {
             let storage = localStorage.getItem("questionStorage");
             let sttus = localStorage.getItem("iwouldliketoask");
 
-            if(storage !== null) {
-
-              if(sttus !== null) {
-                sttus = JSON.parse(sttus);
-                ansView.innerHTML = "<p>Enviado " + timeago(new Date(sttus.sent), 'es_ES') + "</p>";
-              }
+            if(sttus.sent !== null) {
+              sttus = JSON.parse(sttus);
+              ansView.innerHTML = "<p>Enviado " + timeago(new Date(sttus.sent), 'es_ES') + "</p>";
 
               storage = JSON.parse(storage)
               let answers = storage.questions
