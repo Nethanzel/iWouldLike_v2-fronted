@@ -53,7 +53,7 @@ Vue.use(new SocketIO({
   connection: '/'
 }))
 
-Vue.config.devtools = true
+Vue.config.devtools = false
 
 new Vue({
   router,

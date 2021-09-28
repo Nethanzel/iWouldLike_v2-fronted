@@ -65,9 +65,13 @@ export default {
 
             let storage = localStorage.getItem("questionStorage");
             let sttus = localStorage.getItem("iwouldliketoask");
+            sttus = JSON.parse(sttus);
 
-            if(sttus.sent !== null) {
-              sttus = JSON.parse(sttus);
+            if(sttus == null) {
+              return this.$router.push({name: "Survey"})
+            }
+
+            if(sttus.sent !== undefined) {
               ansView.innerHTML = "<p>Enviado " + timeago(new Date(sttus.sent), 'es_ES') + "</p>";
 
               storage = JSON.parse(storage)

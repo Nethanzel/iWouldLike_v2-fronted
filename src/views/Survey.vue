@@ -237,11 +237,23 @@ export default {
 
     removeAnswer(pos){
       let storage = localStorage.getItem("questionStorage")
+      let status = localStorage.getItem("iwouldliketoask")
+
       if(storage != null) {
         storage = JSON.parse(storage)
+        status = JSON.parse(status)
+
+        let x = storage.questions[pos].pos
         storage.questions.splice(pos, 1)
 
+        x = x - 1
+        let z = status.positions.indexOf(x)
+
+        status.positions.splice(z, 1)
+
         localStorage.setItem("questionStorage", JSON.stringify(storage))
+        localStorage.setItem("iwouldliketoask", JSON.stringify(status))
+
         this.loadAnswers()
       }
     },
@@ -285,6 +297,7 @@ export default {
 
           } else if (e.includes("code 401")) {
             this.messageBox("Ya has participado.", 2)
+
             this.$router.push({name: "Done"})
 
           } else if (e.includes("code 404")) {

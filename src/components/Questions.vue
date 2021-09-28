@@ -47,9 +47,9 @@ export default {
 
     methods: {
         goNext () {
-            this.saveAnswer()
             let calcPos = this.pos + 1
             this.pos += 1
+            this.saveAnswer(this.pos -1)
 
             if(calcPos > this.questionCollection.length - 1) {
                 this.currentQuestion = this.questionCollection[0].question
@@ -157,10 +157,8 @@ export default {
             }
         },
 
-        saveAnswer() {
-
+        saveAnswer(pos) {
             if(this.type == "multi" || this.type == "pick") {
-
                 let question  = ""
                 let answer = []
                 let options = document.getElementsByName("option")
@@ -182,7 +180,7 @@ export default {
                 }
 
                 this.storageResutls(questionResult) //Value to save as an answered question
-
+                this.highlightAnswered(pos, false)
             } else if(this.type == "text") {
 
                 let question  = ""
@@ -202,6 +200,7 @@ export default {
                 }
 
                 this.storageResutls(questionResult) //Value to save as an answered question
+                this.highlightAnswered(pos, false)
             } else if(this.type == "select") {
 
                 let question  = ""
@@ -221,6 +220,7 @@ export default {
                 }
 
                 this.storageResutls(questionResult) //Value to save as an answered question
+                this.highlightAnswered(pos, false)
             }
         },
 
@@ -249,6 +249,7 @@ export default {
                 this.cProject = res.data[1][0]
                 
                 let status = localStorage.getItem("iwouldliketoask")
+                status = JSON.parse(status)
                 let project = status !== null ? status.project : null
 
                //=================================================================
@@ -264,7 +265,6 @@ export default {
             })
             .catch((err) => {
                 let e = String(err).toLowerCase()
-                console.log(e);
                 if(e.includes("network error")) {
                     this.messageBox("Servidor fuera de alcance.", 2)
                 } else if (e.includes("code 401")) {
@@ -347,6 +347,7 @@ export default {
             })
             this.setPositions()
             this.positionMarker(0)
+            this.getHighlight()
             this.determineEnd()
             this.$emit("count", this.questionCollection.length)
         },
@@ -354,10 +355,19 @@ export default {
         positionMarker(pos) {
             let positioner = document.getElementById("positioner")
             let positions = positioner.getElementsByTagName("span")
+
             for(let i = 0; i < positions.length; i++) {
-                if(positions[i].getAttribute("id") == pos) {
+               
+               if(positions[i].getAttribute("id") == pos && positions[i].classList.contains("answered")) {
+                    positions[i].classList.add("hposition")
+
+                } else if(positions[i].getAttribute("id") == pos && !positions[i].classList.contains("answered")) {
                     positions[i].classList.add("sposition")
-                } else { positions[i].classList.remove("sposition") }
+                
+                } else { 
+                    positions[i].classList.remove("sposition")
+                    positions[i].classList.remove("hposition")
+                }
             }
         },
 
@@ -367,6 +377,56 @@ export default {
 
             for(let i = 0; i < this.questionCollection.length; i++) {
                 positioner.innerHTML += `<span id=${i}></span>`
+            }
+        },
+
+        highlightAnswered(pos, load) {
+
+            let positioner = document.getElementById("positioner")
+            let positions = positioner.getElementsByTagName("span")
+            if(!load) {
+                for(let i = 0; i < positions.length; i++) {
+                    if(positions[i].getAttribute("id") == pos) {
+                        positions[i].classList.add("answered")
+                        
+                        let status = localStorage.getItem("iwouldliketoask")
+                        if(status !== null) {
+                            status = JSON.parse(status)
+                            if(status.positions) {
+                                status.positions.push(pos)
+                                localStorage.setItem("iwouldliketoask", JSON.stringify(status))
+                            } else {
+                                status.positions = [pos]
+                                localStorage.setItem("iwouldliketoask", JSON.stringify(status))
+                            }
+                        }
+                    }
+                } 
+            } else {
+                for(let i = 0; i < positions.length; i++) {
+                    if(positions[i].getAttribute("id") == pos) {
+                        if(pos == 0) {
+                            positions[i].classList.remove("sposition")
+                            positions[i].classList.add("hposition")
+                            positions[i].classList.add("answered")
+                        } else {
+                            positions[i].classList.add("answered")
+                        }
+
+                    }
+                }     
+            }
+        },
+
+        getHighlight() {
+            let status = localStorage.getItem("iwouldliketoask")
+            if(status !== null) {
+                status = JSON.parse(status)
+                if(status.positions) {
+                    for(let pos = 0; pos < status.positions.length; pos++) {
+                        this.highlightAnswered(status.positions[pos], true)
+                    }
+                }
             }
         }
 
@@ -402,10 +462,30 @@ export default {
     transition: .4s;
 }
 
+#positioner .answered {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(transparent, #7bde70);
+    box-shadow: 1px 1px 2px 1px black;
+    margin: 0 5px;
+    border-radius: 50%;
+    transition: .4s;
+}
+
 #positioner .sposition {
     width: 13px;
     height: 13px;
     background: #fff;
+    box-shadow: 1px 1px 2px 1px black;
+    margin: 0 5px;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+#positioner .hposition {
+    width: 13px;
+    height: 13px;
+    background: #7bde70;
     box-shadow: 1px 1px 2px 1px black;
     margin: 0 5px;
     border-radius: 50%;
