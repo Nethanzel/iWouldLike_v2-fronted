@@ -46,7 +46,6 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   color: #ffffff;
-  max-width: 1366px;
   margin-left: auto;
   margin-right: auto;
 }

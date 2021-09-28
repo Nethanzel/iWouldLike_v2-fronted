@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="hcontainer">
     <div class="header">
       <router-link :to="{name:'Home'}">
         <img src="../assets/iWouldLike2.svg" alt="branding" id="branding">
@@ -43,23 +43,34 @@
   }
 
   .header {
-      z-index: 5;
+    z-index: 5;
   }
 
+  .hcontainer {
+    width: 100vw;
+    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.658);
+    background: #5f8f5f;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+  }
 
-.link {
-  text-decoration: none;
-}
+  .link {
+    text-decoration: none;
+  }
 
 @media only screen and (max-width: 750px) {
   .header {
     width: 100vw;
     height: 9vh;
-    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.658);
     position: fixed;
     top: 0;
-    background: #5f8f5f;
     display: flex;
+  }
+
+  .hcontainer {
+    height: 9vh;
   }
 
   #headerBtns {
@@ -163,16 +174,21 @@
 }
 
 @media only screen and (min-width: 751px) {
+
+  .hcontainer {
+    max-width: unset;
+    margin-left: unset;
+    margin-right: unset;
+    height: 7vh;
+  }
+
   .header {
     height: 7vh;
-    width: 100vw;
-    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.658);
+    width: 100%;
     position: fixed;
     top: 0;
-    background: #5f8f5f;
     display: flex;
-    max-width: 1366px;
-
+    max-width: 1920px;
   }
 
   #headerBtns {
@@ -267,7 +283,6 @@
   #messageBand {
   height: 0px;
   width: 100%;
-  max-width: 1366px;
   top: 7.3vh;
   position: fixed;
   display: flex;

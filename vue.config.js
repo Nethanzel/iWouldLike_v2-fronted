@@ -1,4 +1,4 @@
 module.exports = {
   publicPath: './',
-  outputDir: '../iwouldlikeServices/src/client'
+  outputDir: '../iWouldLike_v2/src/client'
 }

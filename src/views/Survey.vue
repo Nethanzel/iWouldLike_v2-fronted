@@ -266,7 +266,7 @@ export default {
     status = JSON.parse(status)
     let project = status !== null ? status.project : null
 
-    axios.get("/api", {headers: {token: token, project}})
+    axios.get("https://iwouldliketoask.herokuapp.com/api", {headers: {token: token, project}})
       .then(res => {
         if(res.status == 204) {
           this.access = true
@@ -276,36 +276,34 @@ export default {
 
       .catch(err => {
           let e = String(err).toLowerCase()
-          if(e.includes("network error")) {
-            document.getElementById("afterError").innerText = "Parece que no tienes internet."
-            document.getElementById("afterErrorImg").src = e_nn
+          this.loading = false
+          this.access = false
 
-            this.loading = false
+          if(e.includes("network error")) {
             this.messageBox("Servidor fuera de alcance.", 2)
 
+            document.getElementById("afterError").innerText = "Parece que no tienes internet."
+            document.getElementById("afterErrorImg").src = e_nn
+            
           } else if (e.includes("code 401")) {
             this.messageBox("Ya has participado.", 2)
             this.$router.push({name: "Done"})
 
           } else if (e.includes("code 404")) {
-            document.getElementById("afterError").innerText = "Servidor no encontrado."
-            document.getElementById("afterErrorImg").src = e_404
+            this.messageBox("Servidor no encontrado.", 0)
 
-            this.loading = false
-            this.messageBox("Solictud invalida.", 0)
-            
+            document.getElementById("afterError").innerText = "Servidor no encontrado."
+            document.getElementById("afterErrorImg").src = e_404          
           } else if(e.includes("code 500")) {
+            this.messageBox("Estamos teniendo algunos problemas con el servidor.", 2)
+
             document.getElementById("afterError").innerText = "Hubo un problema con el servidor."
             document.getElementById("afterErrorImg").src = e_500
-
-            this.loading = false
-            this.messageBox("Estamos teniendo algunos problemas con el servidor.", 2)
           } else {
+            this.messageBox("Error desconocido.", 0)
+
             document.getElementById("afterError").innerText = "Hubo un error, intenta actualizar la página."
             document.getElementById("afterErrorImg").src = e_unk
-
-            this.loading = false
-            this.messageBox("Error desconocido.", 0)
           }
       })
 
@@ -448,7 +446,6 @@ p {
   justify-content: center;
   align-items: center;
   height: 95vh;
-  width: 98vw;
 }
 
 @media only screen and (max-width: 750px) {
@@ -599,6 +596,9 @@ p {
 
   #appCont {
     padding-top: 5vh;
+    max-width: 1366px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
 

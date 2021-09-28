@@ -65,6 +65,7 @@ export default {
 
             let storage = localStorage.getItem("questionStorage");
             let sttus = localStorage.getItem("iwouldliketoask");
+            if(storage == null || sttus == null) this.$router.push({name: "Survey"}); this.messageBox("No ha completado la encuesta.", 2);
 
             if(sttus.sent !== null) {
               sttus = JSON.parse(sttus);
@@ -84,8 +85,9 @@ export default {
                 `
               }
             } else {
-              ansView.innerHTML = "<h2>No hay respuestas para mostrar.</h2>"
-              this.$router.push({name: "Survey"})
+              this.$router.push({name: "Survey"});
+              ansView.innerHTML = "<h2>No hay respuestas para mostrar.</h2>";
+              this.messageBox("No ha completado la encuesta.", 2);
             }
         },
     },
@@ -212,9 +214,12 @@ h3 {
 
 @media only screen and (min-width: 751px) {
     #done {
-        height: auto;
-        cursor: default;
-        padding-top: 9.5vh;
+      height: auto;
+      cursor: default;
+      padding-top: 9.5vh;
+      max-width: 1366px;
+      margin-right: auto;
+      margin-left: auto;
     }
 
     #done h1 {

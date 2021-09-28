@@ -9,7 +9,7 @@ import titleMixin from './mixins/titleMixin'
 Vue.mixin(titleMixin)
 
 Vue.mixin({
-  data: function() {
+  data: () => {
     return { 
       clienttoken: () => {
         let gettoken = localStorage.getItem("auth")
@@ -17,7 +17,7 @@ Vue.mixin({
           gettoken = JSON.parse(gettoken)
           return gettoken.id
         } else {
-          axios.get("/auth")
+          axios.get("https://iwouldliketoask.herokuapp.com/auth")
           .then((response) => {
               let token = response.headers.token
               localStorage.setItem("auth", JSON.stringify({id: token}))

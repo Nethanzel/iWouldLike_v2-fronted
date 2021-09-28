@@ -116,12 +116,13 @@ h2 {
   .about {
     height: auto;
     cursor: default;
-    margin: 0 10px 15px 10px;
+    margin: 0 auto 15px auto;
     padding-top: 8vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-width: 350px;
+    max-width: 1366px;
   }
 
   #logo {

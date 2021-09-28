@@ -41,7 +41,8 @@ export default {
             questionCollection: undefined, //array of objects
             pos: 0,
             type: "",
-            cProject: ""
+            cProject: "",
+            answeredPos: []
         }
     },
 
@@ -89,7 +90,6 @@ export default {
             this.type = type
             let answersView = document.getElementById("answers")
             if(type == "pick") {
-                answersView.style.paddingLeft = "20px"
                 answersView.innerHTML = ""
                 answersView.style.display = "block"
 
@@ -101,7 +101,6 @@ export default {
                     answersView.innerHTML += option
                 }
             } else if(type == "multi") {
-                answersView.style.paddingLeft = "20px"
                 answersView.innerHTML = ""
                 answersView.style.display = "block"
 
@@ -124,7 +123,6 @@ export default {
                     answersView.innerHTML += option
 
             } else if(type == "select"){
-                answersView.style.paddingLeft = "20px"
                 answersView.innerHTML = ""
                 answersView.style.display = "flex"
 
@@ -140,7 +138,6 @@ export default {
                     answersView.innerHTML += option + "</select>"
 
             } else {
-                answersView.style.paddingLeft = "0px"
                 answersView.innerHTML = ""
             }
         },
@@ -232,31 +229,31 @@ export default {
                     storage = JSON.parse(storage)
                     storage.questions.push(value)
                     localStorage.setItem("questionStorage", JSON.stringify(storage))
+                    this.answeredMarker(value.pos)
                 }
             } else {
                 localStorage.setItem("questionStorage", JSON.stringify({questions: []}))
                 this.storageResutls(value)
+                this.answeredMarker(value.pos)
             }
         },
 
         loadQuestions() {
             let token = this.clienttoken()
 
-            axios.get("/api/questions", {headers: {"token": token}})
+            axios.get("https://iwouldliketoask.herokuapp.com/api/questions", {headers: {"token": token}})
 
             .then(res => {
                 this.questionCollection = res.data[0]
                 this.cProject = res.data[1][0]
                 
-                let status = localStorage.getItem("iwouldliketoask")
+                let status = JSON.parse(localStorage.getItem("iwouldliketoask"))
                 let project = status !== null ? status.project : null
 
                //=================================================================
                 if(project !== this.cProject) {
-
                     localStorage.setItem("questionStorage", JSON.stringify( {"questions":[] }))
                     localStorage.setItem("iwouldliketoask", JSON.stringify({project: this.cProject}))
-                
                 }
                //=================================================================
                 this.$emit("count", this.questionCollection.length)
@@ -264,7 +261,6 @@ export default {
             })
             .catch((err) => {
                 let e = String(err).toLowerCase()
-                console.log(e);
                 if(e.includes("network error")) {
                     this.messageBox("Servidor fuera de alcance.", 2)
                 } else if (e.includes("code 401")) {
@@ -290,7 +286,7 @@ export default {
                 for(let i = 0; i < answers.length; i++) {
                     if(newAnser.question == answers[i].question){
 
-                        if(confirm("Ya habias respondido esta, ¿quieres guardar la nueva respuesta?")) {
+                        if(confirm("Ya habias respondido esta pregunta, ¿quieres guardar la nueva respuesta?")) {
                             let vStorage = storage
                             vStorage.questions.splice(i, 1)
                             localStorage.setItem("questionStorage", JSON.stringify(vStorage))
@@ -339,7 +335,6 @@ export default {
             this.currentQuestion = this.questionCollection[0].question
             this.renderAnswer(this.questionCollection[0].answers, this.questionCollection[0].type)
             this.rederImg(this.questionCollection[0])
-
             let image = document.getElementById("viewImg")
             image.addEventListener("click", (e) => {
                 let uri = e.target.getAttribute("src")
@@ -356,8 +351,14 @@ export default {
             let positions = positioner.getElementsByTagName("span")
             for(let i = 0; i < positions.length; i++) {
                 if(positions[i].getAttribute("id") == pos) {
-                    positions[i].classList.add("sposition")
-                } else { positions[i].classList.remove("sposition") }
+                    if(positions[i].classList.contains("answered")) {
+                        positions[i].classList.add("sanswered")
+                    } else positions[i].classList.add("sposition")
+                } else {
+                    if(positions[i].classList.contains("sanswered")) {
+                        positions[i].classList.remove("sanswered")
+                    } else positions[i].classList.remove("sposition")
+                }
             }
         },
 
@@ -368,7 +369,22 @@ export default {
             for(let i = 0; i < this.questionCollection.length; i++) {
                 positioner.innerHTML += `<span id=${i}></span>`
             }
-        }
+        },
+
+        answeredMarker(pos) {
+            let positioner = document.getElementById("positioner")
+            let positions = positioner.getElementsByTagName("span")
+
+            for(let i = 0; i < positions.length; i++) {
+
+                if(positions[i].getAttribute("id") == pos) {
+                    positions[i].classList.add("answered");
+                    this.answeredPos.push(pos);
+                } else {
+                    positions[i].classList.remove("answered");
+                }
+            }
+        },
 
     },
 
@@ -406,6 +422,26 @@ export default {
     width: 13px;
     height: 13px;
     background: #fff;
+    box-shadow: 1px 1px 2px 1px black;
+    margin: 0 5px;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+#positioner .answered {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(transparent, #7bde70);
+    box-shadow: 1px 1px 2px 1px black;
+    margin: 0 5px;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+#positioner .sanswered {
+    width: 13px;
+    height: 13px;
+    background: #7bde70;
     box-shadow: 1px 1px 2px 1px black;
     margin: 0 5px;
     border-radius: 50%;
@@ -524,9 +560,9 @@ export default {
         border: solid #bbb 2px;
         background: #c9c9c959;
         border-radius: 8px;
-        margin: 5px 5px 0 5px;
+        margin: 5px 0px 0 0px;
         height: auto;
-        padding: 0 5px;
+        padding: 0 0px;
         min-width: 300px;
         transition: .5s;
         box-shadow: 3px 5px 5px #0000008d;
@@ -547,15 +583,13 @@ export default {
     #next span {
         text-align: center;
         font-size: 45px;
-        width: 60px;
-        padding-bottom: 8px;
+        width: 45px;
     }
 
     #back span {
         text-align: center;
         font-size: 45px;
-        width: 60px;
-        padding-bottom: 8px;
+        width: 45px;
     }
 
     #next:active span {
@@ -587,10 +621,6 @@ export default {
     }
 
     #answers {
-        /*display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;*/
         width: 100%;
     }
 
@@ -618,6 +648,15 @@ export default {
         width: 9px;
         height: 9px;
         background: #fff;
+        box-shadow: 1px 1px 2px 1px black;
+        margin: 0 5px;
+        border-radius: 50%;
+    }
+
+    #positioner .sanswered {
+        width: 9px;
+        height: 9px;
+        background: #7bde70;
         box-shadow: 1px 1px 2px 1px black;
         margin: 0 5px;
         border-radius: 50%;

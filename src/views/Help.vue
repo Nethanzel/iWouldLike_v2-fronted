@@ -215,12 +215,14 @@ export default {
     #helpM {
         height: auto;
         cursor: default;
-        margin: 0 10px 15px 10px;
+        margin: 0 auto 15px auto;
         padding-top: 7.5vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         min-width: 350px;
+        max-width: 1366px;
+
     }
 
     #logo {
