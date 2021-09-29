@@ -57,6 +57,14 @@
             </div>
 
             <div>
+                <img src="../assets/positioner.png" alt="pos" class="pos"> 
+                <p>
+                    Con esta indicación podras saber cuales preguntas ya has contestado (con color verde) y las que te faltan (con 
+                    color blanco), el circulo más grande indica la posición en la que estas.
+                </p>
+            </div>
+
+            <div>
                 <div id="back" v-on:click="goBack()">
                     <span>{{char_01}}</span>
                 </div>
@@ -140,6 +148,8 @@ export default {
   #logo {
     height: 175px;
     width: 270px;
+    margin: 6px 0 5px 0;
+    object-fit: unset;
   }
 
   h1 {
@@ -158,9 +168,15 @@ export default {
     text-align: justify;
   }
   img {
-      height: 45px;
-      margin: 5px 0;
+    height: 45px;
+    width: 45px;
+    margin: 5px 0;
+    object-fit: contain;
   }
+
+    .pos {
+        width: 100px;
+    }
 
   .group {
     margin: 10px 5px 30px 5px;
@@ -222,7 +238,6 @@ export default {
         align-items: center;
         min-width: 350px;
         max-width: 1366px;
-
     }
 
     #logo {
@@ -254,7 +269,9 @@ export default {
 
     img {
         height: 70px;
+        width: 70px;
         margin: 10px 10px;
+        object-fit: contain;
     }
 
     .group {

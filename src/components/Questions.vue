@@ -48,9 +48,9 @@ export default {
 
     methods: {
         goNext () {
-            this.saveAnswer()
             let calcPos = this.pos + 1
             this.pos += 1
+            this.saveAnswer(this.pos -1)
 
             if(calcPos > this.questionCollection.length - 1) {
                 this.currentQuestion = this.questionCollection[0].question
@@ -154,10 +154,8 @@ export default {
             }
         },
 
-        saveAnswer() {
-
+        saveAnswer(pos) {
             if(this.type == "multi" || this.type == "pick") {
-
                 let question  = ""
                 let answer = []
                 let options = document.getElementsByName("option")
@@ -179,7 +177,7 @@ export default {
                 }
 
                 this.storageResutls(questionResult) //Value to save as an answered question
-
+                this.highlightAnswered(pos, false)
             } else if(this.type == "text") {
 
                 let question  = ""
@@ -199,6 +197,7 @@ export default {
                 }
 
                 this.storageResutls(questionResult) //Value to save as an answered question
+                this.highlightAnswered(pos, false)
             } else if(this.type == "select") {
 
                 let question  = ""
@@ -218,6 +217,7 @@ export default {
                 }
 
                 this.storageResutls(questionResult) //Value to save as an answered question
+                this.highlightAnswered(pos, false)
             }
         },
 
@@ -229,25 +229,24 @@ export default {
                     storage = JSON.parse(storage)
                     storage.questions.push(value)
                     localStorage.setItem("questionStorage", JSON.stringify(storage))
-                    this.answeredMarker(value.pos)
                 }
             } else {
                 localStorage.setItem("questionStorage", JSON.stringify({questions: []}))
                 this.storageResutls(value)
-                this.answeredMarker(value.pos)
             }
         },
 
         loadQuestions() {
             let token = this.clienttoken()
 
-            axios.get("https://iwouldliketoask.herokuapp.com/api/questions", {headers: {"token": token}})
+            axios.get("/api/questions", {headers: {"token": token}})
 
             .then(res => {
                 this.questionCollection = res.data[0]
                 this.cProject = res.data[1][0]
                 
                 let status = JSON.parse(localStorage.getItem("iwouldliketoask"))
+
                 let project = status !== null ? status.project : null
 
                //=================================================================
@@ -342,6 +341,7 @@ export default {
             })
             this.setPositions()
             this.positionMarker(0)
+            this.getHighlight()
             this.determineEnd()
             this.$emit("count", this.questionCollection.length)
         },
@@ -349,15 +349,15 @@ export default {
         positionMarker(pos) {
             let positioner = document.getElementById("positioner")
             let positions = positioner.getElementsByTagName("span")
+
             for(let i = 0; i < positions.length; i++) {
-                if(positions[i].getAttribute("id") == pos) {
-                    if(positions[i].classList.contains("answered")) {
-                        positions[i].classList.add("sanswered")
-                    } else positions[i].classList.add("sposition")
-                } else {
-                    if(positions[i].classList.contains("sanswered")) {
-                        positions[i].classList.remove("sanswered")
-                    } else positions[i].classList.remove("sposition")
+               if(positions[i].getAttribute("id") == pos && positions[i].classList.contains("answered")) {
+                    positions[i].classList.add("hposition")
+                } else if(positions[i].getAttribute("id") == pos && !positions[i].classList.contains("answered")) {
+                    positions[i].classList.add("sposition")
+                } else { 
+                    positions[i].classList.remove("sposition")
+                    positions[i].classList.remove("hposition")
                 }
             }
         },
@@ -371,21 +371,54 @@ export default {
             }
         },
 
-        answeredMarker(pos) {
+        highlightAnswered(pos, load) {
             let positioner = document.getElementById("positioner")
             let positions = positioner.getElementsByTagName("span")
+            if(!load) {
+                for(let i = 0; i < positions.length; i++) {
+                    if(positions[i].getAttribute("id") == pos) {
+                        positions[i].classList.add("answered")
+                        
+                        let status = localStorage.getItem("iwouldliketoask")
+                        if(status !== null) {
+                            status = JSON.parse(status)
+                            if(status.positions) {
+                                status.positions.push(pos)
+                                localStorage.setItem("iwouldliketoask", JSON.stringify(status))
+                            } else {
+                                status.positions = [pos]
+                                localStorage.setItem("iwouldliketoask", JSON.stringify(status))
+                            }
+                        }
+                    }
+                } 
+            } else {
+                for(let i = 0; i < positions.length; i++) {
+                    if(positions[i].getAttribute("id") == pos) {
+                        if(pos == 0) {
+                            positions[i].classList.remove("sposition")
+                            positions[i].classList.add("hposition")
+                            positions[i].classList.add("answered")
+                        } else {
+                            positions[i].classList.add("answered")
+                        }
 
-            for(let i = 0; i < positions.length; i++) {
-
-                if(positions[i].getAttribute("id") == pos) {
-                    positions[i].classList.add("answered");
-                    this.answeredPos.push(pos);
-                } else {
-                    positions[i].classList.remove("answered");
-                }
+                    }
+                }     
             }
         },
 
+        getHighlight() {
+            let status = localStorage.getItem("iwouldliketoask")
+            if(status !== null) {
+                status = JSON.parse(status)
+                if(status.positions) {
+                    for(let pos = 0; pos < status.positions.length; pos++) {
+                        this.highlightAnswered(status.positions[pos], true)
+                    }
+                }
+            }
+        }
     },
 
     mounted () {
@@ -417,16 +450,6 @@ export default {
     transition: .4s;
 }
 
-#positioner .sposition {
-    width: 13px;
-    height: 13px;
-    background: #fff;
-    box-shadow: 1px 1px 2px 1px black;
-    margin: 0 5px;
-    border-radius: 50%;
-    transition: .4s;
-}
-
 #positioner .answered {
     width: 10px;
     height: 10px;
@@ -437,7 +460,17 @@ export default {
     transition: .4s;
 }
 
-#positioner .sanswered {
+#positioner .sposition {
+    width: 13px;
+    height: 13px;
+    background: #fff;
+    box-shadow: 1px 1px 2px 1px black;
+    margin: 0 5px;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+#positioner .hposition {
     width: 13px;
     height: 13px;
     background: #7bde70;
@@ -446,7 +479,6 @@ export default {
     border-radius: 50%;
     transition: .4s;
 }
-
 
 #viewImg {
     max-width: 25vw;
@@ -651,15 +683,5 @@ export default {
         margin: 0 5px;
         border-radius: 50%;
     }
-
-    #positioner .sanswered {
-        width: 9px;
-        height: 9px;
-        background: #7bde70;
-        box-shadow: 1px 1px 2px 1px black;
-        margin: 0 5px;
-        border-radius: 50%;
-    }
-
 }
 </style>

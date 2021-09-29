@@ -17,7 +17,7 @@ Vue.mixin({
           gettoken = JSON.parse(gettoken)
           return gettoken.id
         } else {
-          axios.get("https://iwouldliketoask.herokuapp.com/auth")
+          axios.get("/auth")
           .then((response) => {
               let token = response.headers.token
               localStorage.setItem("auth", JSON.stringify({id: token}))
@@ -53,7 +53,7 @@ Vue.use(new SocketIO({
   connection: '/'
 }))
 
-Vue.config.devtools = true
+Vue.config.devtools = false
 
 new Vue({
   router,

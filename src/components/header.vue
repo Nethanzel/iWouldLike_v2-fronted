@@ -281,18 +281,16 @@
   }
 
   #messageBand {
-  height: 0px;
-  width: 100%;
-  top: 7.3vh;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: height cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
-  z-index: 1;
-  overflow: hidden;
+    height: 0px;
+    width: 100%;
+    top: 7.3vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: height cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
+    z-index: 1;
+    overflow: hidden;
+  }
 }
-}
-
-
 </style>

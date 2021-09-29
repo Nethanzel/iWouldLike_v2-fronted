@@ -65,6 +65,7 @@ export default {
           this.messageBox("Error al crear autenticación del cliente.", 2);
           document.getElementById("spin").style.display = "none";
           document.getElementById("goBtn").style.display = "block";
+          this.authTryCount = 0;
           return clearTimeout();
         }
         this.clienttoken();

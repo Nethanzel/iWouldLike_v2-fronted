@@ -65,12 +65,15 @@ export default {
 
             let storage = localStorage.getItem("questionStorage");
             let sttus = localStorage.getItem("iwouldliketoask");
+            sttus = JSON.parse(sttus);
             if(storage == null || sttus == null) this.$router.push({name: "Survey"}); this.messageBox("No ha completado la encuesta.", 2);
 
-            if(sttus.sent !== null) {
-              sttus = JSON.parse(sttus);
-              ansView.innerHTML = "<p>Enviado " + timeago(new Date(sttus.sent), 'es_ES') + "</p>";
+            if(sttus == null) {
+              return this.$router.push({name: "Survey"})
+            }
 
+            if(sttus.sent !== undefined) {
+              ansView.innerHTML = "<p>Enviado " + timeago(new Date(sttus.sent), 'es_ES') + "</p>";
               storage = JSON.parse(storage)
               let answers = storage.questions
 
@@ -264,7 +267,6 @@ h3 {
   #done .a {
     font-size: 15px;
   }
-
 
 }
 
