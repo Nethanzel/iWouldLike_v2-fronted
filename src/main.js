@@ -17,7 +17,7 @@ Vue.mixin({
           gettoken = JSON.parse(gettoken)
           return gettoken.id
         } else {
-          axios.get("https://iwouldliketoask.herokuapp.com/auth")
+          axios.get("/auth")
           .then((response) => {
               let token = response.headers.token
               localStorage.setItem("auth", JSON.stringify({id: token}))

@@ -239,7 +239,7 @@ export default {
         loadQuestions() {
             let token = this.clienttoken()
 
-            axios.get("https://iwouldliketoask.herokuapp.com/api/questions", {headers: {"token": token}})
+            axios.get("/api/questions", {headers: {"token": token}})
 
             .then(res => {
                 this.questionCollection = res.data[0]

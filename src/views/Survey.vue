@@ -278,7 +278,7 @@ export default {
     status = JSON.parse(status)
     let project = status !== null ? status.project : null
 
-    axios.get("https://iwouldliketoask.herokuapp.com/api", {headers: {token: token, project}})
+    axios.get("/api", {headers: {token: token, project}})
       .then(res => {
         if(res.status == 204) {
           this.access = true
