@@ -51,18 +51,27 @@ export default {
   data () {
     return {
       charOne: "&",
-      tes: ``
+      authTryCount: 0,
     }
   },
 
   methods: {
     go() {
-      document.getElementById("spin").style.display = "block"
-      document.getElementById("goBtn").style.display = "none"
+      document.getElementById("spin").style.display = "block";
+      document.getElementById("goBtn").style.display = "none";
+
       setTimeout(() => {
-        this.clienttoken()
-        this.goSurvey()
-      }, 3000)
+        if(this.authTryCount >= 3) {
+          this.messageBox("Error al crear autenticación del cliente.", 2);
+          document.getElementById("spin").style.display = "none";
+          document.getElementById("goBtn").style.display = "block";
+          this.authTryCount = 0;
+          return clearTimeout();
+        }
+        this.clienttoken();
+        this.goSurvey();
+        this.authTryCount++;
+      }, 3000);
     },
 
     goSurvey() {
@@ -145,7 +154,9 @@ export default {
     height: auto;
     cursor: default;
     padding-top: 7vh;
-
+    max-width: 1366px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .home p {

@@ -340,10 +340,11 @@ input, textarea {
   .report {
     height: auto;
     cursor: default;
-    margin: 0 10px 15px 10px;
+    margin: 0 auto 15px auto;
     padding-top: 5vh;
     display: flex;
     flex-direction: column;
+    max-width: 1366px;
   }
 
   h1 {

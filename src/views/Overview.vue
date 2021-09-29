@@ -172,8 +172,9 @@ h1 {
   .overview {
     height: auto;
     cursor: default;
-    margin: 0 0px 15px 0px;
+    margin: 0 auto 15px auto;
     padding-top: 8vh;
+    max-width: 1366px;
   }
 
   p {
