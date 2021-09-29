@@ -405,7 +405,6 @@ export default {
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 5px;
-
 }
 
 #positioner span {
