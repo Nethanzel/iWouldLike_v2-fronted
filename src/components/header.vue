@@ -283,7 +283,7 @@
   #messageBand {
     height: 0px;
     width: 100%;
-    top: 7.3vh;
+    top: 7.1vh;
     position: fixed;
     display: flex;
     align-items: center;
@@ -291,6 +291,7 @@
     transition: height cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
     z-index: 1;
     overflow: hidden;
+    left: 0;
   }
 }
 </style>
