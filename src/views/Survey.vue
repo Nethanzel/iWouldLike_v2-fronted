@@ -291,27 +291,29 @@ export default {
           this.loading = false
           this.access = false
 
-          if(e.includes("network error")) {
+          setTimeout(() => {
+            if(e.includes("network error")) {
             this.messageBox("Servidor fuera de alcance.", 2)
             document.getElementById("afterError").innerText = "Parece que no tienes internet."
             document.getElementById("afterErrorImg").src = e_nn
             
-          } else if (e.includes("code 401")) {
-            this.messageBox("Ya has participado.", 2)
-            this.$router.push({name: "Done"})
-          } else if (e.includes("code 404")) {
-            this.messageBox("Servidor no encontrado.", 0)
-            document.getElementById("afterError").innerText = "Servidor no encontrado."
-            document.getElementById("afterErrorImg").src = e_404          
-          } else if(e.includes("code 500")) {
-            this.messageBox("Estamos teniendo algunos problemas con el servidor.", 2)
-            document.getElementById("afterError").innerText = "Hubo un problema con el servidor."
-            document.getElementById("afterErrorImg").src = e_500
-          } else {
-            this.messageBox("Error desconocido.", 0)
-            document.getElementById("afterError").innerText = "Hubo un error, intenta actualizar la página."
-            document.getElementById("afterErrorImg").src = e_unk
-          }
+            } else if (e.includes("code 401")) {
+              this.messageBox("Ya has participado.", 2)
+              this.$router.push({name: "Done"})
+            } else if (e.includes("code 404")) {
+              this.messageBox("Servidor no encontrado.", 0)
+              document.getElementById("afterError").innerText = "Servidor no encontrado."
+              document.getElementById("afterErrorImg").src = e_404          
+            } else if(e.includes("code 500")) {
+              this.messageBox("Estamos teniendo algunos problemas con el servidor.", 2)
+              document.getElementById("afterError").innerText = "Hubo un problema con el servidor."
+              document.getElementById("afterErrorImg").src = e_500
+            } else {
+              this.messageBox("Error desconocido.", 0)
+              document.getElementById("afterError").innerText = "Hubo un error, intenta actualizar la página."
+              document.getElementById("afterErrorImg").src = e_unk
+            }
+          }, 0.1)
       })
   }
 }
