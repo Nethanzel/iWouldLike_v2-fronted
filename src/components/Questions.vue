@@ -505,7 +505,9 @@ export default {
         border-radius: 8px;
         margin: 5px 10px 5px 10px;
         height: auto;
-        max-height: 650px;
+        max-height: 500px;
+        min-height: 215px;
+        max-width: 650px;
         background: #c9c9c959;
         box-shadow: 5px 5px 5px #0000008d;
         transition: .5s,;
@@ -570,17 +572,21 @@ export default {
 
     #answers {
         width: 100%;
+        height: 100%;
     }
 
     #textarea {
         font-size: 17px;
         font-family: monospace;
-        height: 100px;
+        height: 120px;
         width: 90%;
+        margin: auto;
     }
 
     #select {
-        font-size: 17px;;
+        font-size: 17px;
+        margin: auto;
+        height: 30px;
     }
 }
 
@@ -603,24 +609,26 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        padding: 3px;
     }
 
     #back {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        padding: 3px;
     }
 
     #next span {
         text-align: center;
         font-size: 45px;
-        width: 45px;
+        width: 53px;
     }
 
     #back span {
         text-align: center;
         font-size: 45px;
-        width: 45px;
+        width: 53px;
     }
 
     #next:active span {
@@ -683,5 +691,16 @@ export default {
         margin: 0 5px;
         border-radius: 50%;
     }
+
+    #positioner .answered {
+        width: 6px;
+        height: 6px;
+    }
+
+    #positioner .hposition {
+        width: 9px;
+        height: 9px;
+    }
+
 }
 </style>
