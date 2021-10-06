@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             chartData: {
-                labels: ["Lo que hay", "Lo que falta"],
+                labels: ["Logrado", "Lo que falta"],
 
                 datasets: [{
                     label: "Label",

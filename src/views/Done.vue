@@ -23,10 +23,7 @@
         enviar algún reporte sobre tu experiencia al usar la aplicación, ya sea por errores que presente o alguna idea/critica que
         quieras aportar, será bien recibida.
       </p>
-    </div>
-
-
-    
+    </div>    
   </div>
 
 </template>
