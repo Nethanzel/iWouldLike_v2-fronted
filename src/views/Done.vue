@@ -62,8 +62,13 @@ export default {
 
             let storage = localStorage.getItem("questionStorage");
             let sttus = localStorage.getItem("iwouldliketoask");
+                      
             sttus = JSON.parse(sttus);
-            if(storage == null || sttus == null) this.$router.push({name: "Survey"}); this.messageBox("No ha completado la encuesta.", 2);
+
+            if(storage == null || sttus == null) {
+              this.$router.push({name: "Survey"});
+              this.messageBox("No ha completado la encuesta.", 2);
+            }
 
             if(sttus == null) {
               return this.$router.push({name: "Survey"})
