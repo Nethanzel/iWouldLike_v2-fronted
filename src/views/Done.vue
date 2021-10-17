@@ -7,19 +7,19 @@
     </div>
 
     <div class="grtng">
-      <h1>¡Ya has participado! Gracias por ayudar.</h1>
-      <p class="center">Por favor pidele a tus amgios que tambien participen. <strong>Para salir solo tienes que cerrar la página</strong></p>
+      <h1>¡Ya has participado! Gracias por ayudarnos.</h1>
+      <p class="center">Por favor pidele a tus amgios que también participen.</p>
 
-      <p class="center">Si quieres ver el progreso de la recoleccion de datos, <router-link :to="{name: 'Overview'}">aqui</router-link> 
+      <p class="center">Si quieres ver el progreso de la recolección de datos, <router-link :to="{name: 'Overview'}">aqui</router-link> 
         podras ver un resumen.</p>
 
-      <p class="center">A continuacion podras ver todas tus respuestas:</p>
+      <p class="center">A continuacion podras ver las respuestas que enviaste:</p>
 
       <div id="answersView"> </div>
 
       <p>Este proyecto es de código abierto (open source), puedes acceder al <a href="https://github.com/Nethanzel/i_would_like_to_ask" target="_blank">
         repositorio en Github</a>. <strong>Si quieres recibir el resultado de la investigación, <router-link :to="{name: 'Report'}">
-        envia un reporte</router-link> con tu correo y especificando que quieres recibirlo.</strong> Recuerda que tambien puedes 
+        envia un reporte</router-link> con tu correo, especificando que quieres recibirlo.</strong> Recuerda que también puedes 
         enviar algún reporte sobre tu experiencia al usar la aplicación, ya sea por errores que presente o alguna idea/critica que
         quieras aportar, será bien recibida.
       </p>

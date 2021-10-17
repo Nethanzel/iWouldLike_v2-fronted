@@ -4,14 +4,7 @@
         <h1><strong>I would like to ask...</strong></h1>
 
         <p>"I would to ask" o en español "Quisiera preguntar", es un pequeño proyecto de código abierto (Open Source), el cual 
-          fue desarrollado para realizar una investigación y reunir datos sobre el contexto de seguridad informática que permitan 
-          detectar indicadores de la incidencia de eventos negativos en el area en República Dominicana.
-        </p>
-
-        <p>
-          La intención es mantener los datos accesibles a todos, a travez de esta misma aplicacion o por algún otro medio, ya que de nada 
-          valdria mantenerlos escondidos cuando la razon de este proyecto se basa en que al no haber fuentes confiables que dispongan 
-          datos de forma pública, es necesario realizar una investigación y crear una fuente de datos.
+          fue desarrollado para realizar investigaciones y reunir datos sobre el tema que quieras.
         </p>
 
         <p>
@@ -21,16 +14,16 @@
 
         <div class="group">
           <h2>Sobre la investigación</h2>
+          <p>
+            Esta investigación está siendo dirigida por <strong>Brahian Estevez</strong>, <strong>Natanael Abad</strong> y <strong>Jean Carlos Mariñez</strong>, estudiantes de término de 
+            <strong>Ingeniería de Sistemas y Computación</strong> de la universidad Dominicana O{{charOne}}M, como parte del proyecto de monografíco. La investigación es de caracter social y 
+            se basa en identificar los indicadores que pueden ser interpretados como razones que estan permitiendo o que podrian permitir que las personas en nuestro país sean victima 
+            de filtración o robo de datos personales (como contraseñas, datos bancarios o archivos privados) por parte de los delincuentes cibernéticos.
+          </p>
 
           <p>
-            Esta investigación está siendo dirigida por <strong>Natanael Abad</strong>, estudiante de término de <strong>Ingeniería de Sistemas y Computación</strong> 
-            de la universidad Dominicana O{{charOne}}M, como parte del proyecto de monografíco. La investigación es de caracter social y se basa en identificar 
-            alguno de los indicadores que pueden ser interpretados como razones que estan permitiendo o que podrian permitir que las personas en nuestro país sean victima de filtración 
-            o robo de datos personales (como contraseñas, datos bancarios o archivos privados) por parte de los archifamosos hackers.
-          </p>
-          <p>
-            Actualmente, existe muy poca información por parte de las instituciones reguladoras sobre estadisticas o detalles que puedan servir, por lo 
-            que preferí crear mi propia fuente de referencia, pero para eso necesito que por favor, contestes las preguntas que he 
+            Actualmente, existe muy poca información por parte de las instituciones encargadas de ofercer los detalles del área, por lo 
+            que preferimos crear nuestra propia fuente de referencia, pero para eso necesitamos que por favor, contestes las preguntas que hemos 
             creado para determinar lo anterior. Es importante destacar que estas estádisticas se generan por las denuncias que realizan las personas en los 
             lugares dispuestos para esos fines, y aunque las personas hacen sus denuncias, las generalidades que descienden de estas no estan disponibles como 
             información que ofrecen esas instituciones.

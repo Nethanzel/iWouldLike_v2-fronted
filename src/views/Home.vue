@@ -9,23 +9,22 @@
 
     <div>
       <p>
-        Un saludo. Estas a punto de participar en una investigación dirigida por un estudiante, solo necesito que contestes y luego envies 
-        algunas preguntas sobre un tema en especfico, <strong>en ningún momento se le pedirá alguna información personal</strong>, lo único necesario 
-        son sus respuestas. Si quieres saber más sobre la investigación, en la sección <router-link to="/about">"Saber más"</router-link> 
+        Estas a punto de participar en una investigación dirigida por estudiantes de la universidad O{{charOne}}M, solo necesitamos que contestes y luego envies 
+        algunas preguntas sobre seguridad informática, <strong>en ningún momento se te pedirá alguna información personal</strong>, lo único necesario 
+        son tus respuestas. Si quieres saber más sobre la investigación, en la sección <router-link to="/about">"Saber más"</router-link> 
         encontraras otros detalles.
       </p>
 
       <p>
-        Quiero que tengas claro que <strong>lo único que hace esta aplicación es reunir los datos que pongas como 
-        respuestas</strong>. Podras ver tus respuestas y si por alguna razón quieres cambiar alguna, 
-        cuando hayas contestado todo te dará la opción donde puedes borrar alguna de ellas y luego volver a 
-        contestarla. Tendras la opción de enviar tu cuestionario completado cuando quieras, luego que lo hayas enviado, ya no 
+        Podras ver tus respuestas antes de enviarlas y si por alguna razón quieres cambiar alguna, 
+        cuando hayas contestado todo te dará las opciones donde puedes borrar alguna de ellas y luego volver a 
+        contestarla. Tendras la opción de enviar tu cuestionario completado cuando quieras (aún si sales de la página), luego que lo hayas enviado, ya no 
         podras volver a modificar nada.
       </p>
 
       <p>Si en algun momento notas que la aplicación funciona de forma incorrecta o te parece que es dificil de usar, tienes la 
         posibilidad de <router-link to="/report">enviar un reporte</router-link> cuando quieras, explicando lo que pasa o alguna 
-        idea que quisieras compartirme. Podras ver un <router-link to="/overview">resumen</router-link> del progreso del alcance de la investigación.
+        idea que quisieras compartirnos. Podras ver un <router-link to="/overview">resumen</router-link> del progreso donde podras ver el alcance que lleva la investigación.
       </p>
 
       <p>Si al usar la aplicación encuentras algo que no está muy claro, en la sección de <router-link to="/help">Ayuda</router-link> podras encontrar detalles
