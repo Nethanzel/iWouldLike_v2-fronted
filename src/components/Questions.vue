@@ -20,6 +20,10 @@
                 <span></span>
                 <span></span>
             </div>
+            <div id="bnMobile">
+                <div class="back" v-on:click="goBack()"><span> {{char_02}} Anterior </span></div>
+                <div class="next" v-on:click="goNext()"><span>Siguiente >></span></div>
+            </div>
         </div>
 
         <div id="next" v-on:click="goNext()">
@@ -37,6 +41,7 @@ export default {
     data() {
         return {
             char_01: "<",
+            char_02: "<<",
             currentQuestion: "",
             questionCollection: undefined, //array of objects
             pos: 0,
@@ -95,8 +100,8 @@ export default {
 
                 for(let i = 0; i < questionAnswers.length; i++) {
                     let option = `
-                        <input type="radio" name="option" id="option${i}" value="${questionAnswers[i]}" style="margin: 7px 5px;"> 
-                        <label for="option${i}">${questionAnswers[i]}</label> <br>
+                        <input type="radio" name="option" id="option${i}" value="${questionAnswers[i]}" style="margin:3px 5px 0 5px;float: left;"> 
+                        <label for="option${i}" style="margin-left:30px;display:block;">${questionAnswers[i]}</label> <br>
                     `
                     answersView.innerHTML += option
                 }
@@ -505,12 +510,15 @@ export default {
         border-radius: 8px;
         margin: 5px 10px 5px 10px;
         height: auto;
-        max-height: 500px;
         min-height: 215px;
         max-width: 650px;
         background: #c9c9c959;
         box-shadow: 5px 5px 5px #0000008d;
         transition: .5s,;
+    }
+
+    #bnMobile {
+        display: none;
     }
 
     #next {
@@ -531,6 +539,11 @@ export default {
         width: 70px;
         margin: 10px 10px;
         padding-bottom: 8px;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: -moz-none;
+        -o-user-select: none;
+        user-select: none;
     }
 
     #back span {
@@ -539,6 +552,11 @@ export default {
         width: 70px;
         margin: 10px 10px;
         padding-bottom: 8px;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: -moz-none;
+        -o-user-select: none;
+        user-select: none;
     }
 
     #next:hover span {
@@ -564,8 +582,8 @@ export default {
 
     #question {
         display: block;
-        padding: 15px 0;
-        font-size: 19px;
+        padding: 15px 0 25px 0;
+        font-size: 21px;
         font-weight: bold;
         text-align: center;
     }
@@ -597,48 +615,56 @@ export default {
         border: solid #bbb 2px;
         background: #c9c9c959;
         border-radius: 8px;
-        margin: 5px 0px 0 0px;
+        margin: 5px 2px 0 2px;
         height: auto;
-        padding: 0 0px;
-        min-width: 300px;
+        padding: 0px 0px;
+        min-width: 97.5vw;
+        max-width: 97.5vw;
         transition: .5s;
         box-shadow: 3px 5px 5px #0000008d;
     }
 
-    #next {
+    #next, #back {
+        display: none;
+    }
+
+    #bnMobile {
         display: flex;
+        width: 100%;
+        margin-top: 7px;
+    }
+
+    #bnMobile .back, #bnMobile .next {
+        height: 35px;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+    #bnMobile .back:active, #bnMobile .next:active {
+        background: #79c471;
+        transition: all .2s;
+    }
+
+    #bnMobile .back {
         justify-content: flex-start;
-        align-items: center;
-        padding: 3px;
+        padding-left: 15px;
     }
 
-    #back {
-        display: flex;
+    #bnMobile .next {
         justify-content: flex-end;
-        align-items: center;
-        padding: 3px;
+        padding-right: 15px;
     }
 
-    #next span {
-        text-align: center;
-        font-size: 45px;
-        width: 53px;
-    }
-
-    #back span {
-        text-align: center;
-        font-size: 45px;
-        width: 53px;
-    }
-
-    #next:active span {
-        background: #79c471;
-        border-radius: 50%;
-    }
-
-    #back:active span {
-        background: #79c471;
-        border-radius: 50%
+    #bnMobile .back span, #bnMobile .next span {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: -moz-none;
+        -o-user-select: none;
+        user-select: none;
+        font-weight: bold;
+        font-size: 17px;
     }
 
     #view {
@@ -646,7 +672,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 10px 5px;
+        padding: 5px;
         width: 100%;
         min-width: 55vw;
     }
@@ -666,12 +692,15 @@ export default {
     #textarea {
         font-size: 17px;
         height: 75px;
-        width: 100%;
+        width: 80%;
+        margin: 0 auto;
+
     }
 
     #select {
         font-size: 17px;
-        width: 100%;
+        width: 70%;
+        margin: 0 auto;
     }
 
     #positioner span {

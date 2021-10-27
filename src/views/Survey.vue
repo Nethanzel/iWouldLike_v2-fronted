@@ -502,7 +502,7 @@ p {
     cursor: default;
     height: 100vh;
     width: 97%;
-    padding-top: 5vh;
+    padding-top: 4vh;
     padding-bottom: 10px;
     display: flex;
     flex-direction: column;

@@ -78,8 +78,8 @@ p {
 
 @media only screen and (max-width: 750px) {
   .ils {
-    width: 35vh;
-    height: 35vh;
+    width: 30vh;
+    height: 30vh;
   }
 
   #afterErrorImg {
