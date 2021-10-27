@@ -24,7 +24,7 @@
           <h2 id="choosen">Para enviar tus respuestas haz click en "enviar".</h2>
           <p id="changeAnsP"> Si quieres cambiar alguna respuesta, en la parte de "ver respuestas" podras borrar la que quieras y luego volver a contestarla.</p>
             <div class="nav" v-on:click="done()" id="done">
-                <span class="r_link">Enviar</span>
+                <span class="r_link" id="btnSend">Enviar</span>
             </div>
 
             <div id="ansViewBtn" class="nav" v-on:click="loadAnswers()">
@@ -453,6 +453,43 @@ p {
   justify-content: center;
   align-items: center;
   height: 95vh;
+}
+
+#btnSend:hover {
+  animation-duration: 0s;
+  -webkit-animation-duration: 0s;
+
+}
+
+#btnSend {
+  font-weight: bold;
+  animation-name: parpadeo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes parpadeo{  
+  0% { background: #79c471; }
+  50% { background: #79c47162; }
+  100% { background: #79c471; }
+}
+
+@-webkit-keyframes parpadeo {  
+  0% { background: #79c471; }
+  50% { background: #79c47162; }
+  100% { background: #79c471; }
+}
+
+@keyframes parpadeo {  
+  0% { background: #79c471; }
+  50% { background: #79c47162; }
+  100% { background: #79c471; }
 }
 
 @media only screen and (max-width: 750px) {
